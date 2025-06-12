@@ -1,0 +1,43 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Blade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-background">
+    <div class="container">
+        <h1 class="blade-title">Login</h1>
+
+        <!-- Logout banner (one-time) -->
+        {% if logged_out %}
+          <div class="flash-info" style="margin-bottom: 1em;">
+            You’ve successfully logged out.
+          </div>
+        {% endif %}
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flashes">
+            {% for category, message in messages %}
+              <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <input type="text" name="username" placeholder="Username" required class="input-field"><br><br>
+            <input type="password" name="password" placeholder="Password" required class="input-field"><br><br>
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <!-- New user prompt -->
+        {% if not logged_out and get_flashed_messages() %}
+          <p style="margin-top: 15px; font-size: 16px;">Are you a new user? <a href="{{ url_for('register') }}">Register here</a>.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

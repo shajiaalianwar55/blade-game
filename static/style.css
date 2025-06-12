@@ -1,0 +1,119 @@
+/* style.css */
+
+/* Purple-gradient backgrounds for player and admin */
+.home-background {
+  background: linear-gradient(135deg,
+    #4c1155 0%,
+    #311146 25%,
+    #0b122f 50%,
+    #18153f 75%,
+    #050919 100%
+  );
+  color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.admin-background {
+  background: linear-gradient(135deg,
+    #050919 0%,
+    #18153f 25%,
+    #0b122f 50%,
+    #311146 75%,
+    #4c1155 100%
+  );
+  color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container styling */
+.container {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 600px;
+  margin: 40px auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Title */
+.blade-title {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Buttons */
+.btn {
+  background-color: rgba(76, 17, 85, 0.8);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  transition: background-color 0.3s ease;
+}
+.btn:hover {
+  background-color: rgba(100, 35, 130, 0.9);
+}
+.btn.small {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+/* Flash message styling */
+.flashes {
+  margin-bottom: 16px;
+}
+.flash-success {
+  background-color: rgba(0, 128, 0, 0.8);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+.flash-danger {
+  background-color: rgba(128, 0, 0, 0.8);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+.flash-warning {
+  background-color: rgba(255, 165, 0, 0.8);
+  color: #000000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+.flash-info {
+  background-color: rgba(30, 144, 255, 0.8);
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 8px;
+  overflow: hidden;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+th {
+  background-color: rgba(76, 17, 85, 0.8);
+}
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}

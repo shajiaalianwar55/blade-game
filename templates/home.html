@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-background">
+    <div class="container">
+        <h1 class="blade-title">Blade</h1>
+        <div class="button-container">
+            <a href="{{ url_for('login') }}" class="btn">Login</a>
+            <a href="{{ url_for('register') }}" class="btn">Register</a>
+        </div>
+    </div>
+</body>
+</html>

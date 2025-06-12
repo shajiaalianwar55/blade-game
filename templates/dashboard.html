@@ -1,0 +1,7 @@
+@echo off
+set /p projectname=Enter project folder name:
+xcopy /E /I /Y "C:\Users\hp\Documents\project-template" "%cd%\%projectname%"
+cd %projectname%
+python -m venv .venv
+call .venv\Scripts\activate
+echo Project '%projectname%' created and virtual environment activated.

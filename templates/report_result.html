@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Kill Report</title>
+</head>
+<body>
+    <h2>{{ message }}</h2>
+
+    <form action="/dashboard" method="post">
+        <input type="hidden" name="username" value="{{ name }}">
+        <button type="submit">⬅ Back to Dashboard</button>
+    </form>
+</body>
+</html>

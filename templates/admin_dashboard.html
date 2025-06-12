@@ -1,0 +1,76 @@
+<!-- templates/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <meta http-equiv="refresh" content="5">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="admin-background">
+    <div class="container">
+        <h1 class="blade-title">Admin Dashboard</h1>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flashes">
+            {% for category, message in messages %}
+              <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Players overview -->
+        <section>
+            <h2>All Players ({{ admin_view|length }})</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Blade Code</th>
+                        <th>Blades</th>
+                        <th>Kills</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in admin_view %}
+                    <tr>
+                        <td>{{ p.name }}</td>
+                        <td><code>{{ p.code }}</code></td>
+                        <td>{{ p.blades }}</td>
+                        <td>{{ p.kills }}</td>
+                        <td>{{ 'Alive' if p.alive else 'Eliminated' }}</td>
+                        <td>
+                            {% if p.alive %}
+                            <form method="post" action="{{ url_for('admin_remove', username=p.name) }}">
+                                <button class="btn small" type="submit">Remove</button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Admin actions -->
+        <section class="button-container" style="margin-top:20px;">
+            <form method="post" action="{{ url_for('admin_assign') }}" style="display:inline">
+                <button class="btn" type="submit">Assign / Reassign Targets</button>
+            </form>
+            <form method="post" action="{{ url_for('admin_reset') }}" style="display:inline; margin-left:10px;">
+                <button class="btn" type="submit">🔄 Reset Game</button>
+            </form>
+        </section>
+
+        <!-- Logout -->
+        <div class="button-container" style="margin-top:40px;">
+            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

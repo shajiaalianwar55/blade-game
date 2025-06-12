@@ -1,0 +1,29 @@
+<!-- eliminated.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Eliminated - Blade</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-background">
+  <div class="container">
+    <h1 class="blade-title">💀 You've been eliminated, {{ name }}.</h1>
+    {% if killer %}
+      <p style="font-size:1.2rem;">You were eliminated by <strong>{{ killer }}</strong>.</p>
+    {% else %}
+      <p style="font-size:1.2rem;">You have been eliminated.</p>
+    {% endif %}
+
+    <!-- Show their stats -->
+    <p style="margin-top:16px;">🗡️ Your blade code: <strong>{{ blade_code }}</strong></p>
+    <p>🔪 Blades owned: <strong>{{ blades }}</strong> | 💀 Kills: <strong>{{ kill_count }}</strong></p>
+
+    <!-- Actions -->
+    <div class="button-container" style="margin-top:24px;">
+      <a href="{{ url_for('leaderboard') }}" class="btn">📊 View Leaderboard</a>
+      <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    </div>
+  </div>
+</body>
+</html>

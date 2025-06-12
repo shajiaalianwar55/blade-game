@@ -1,0 +1,56 @@
+<!-- leaderboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-background">
+    <div class="container">
+        <h1 class="blade-title">Leaderboard</h1>
+
+        <!-- Kills Leaderboard -->
+        <h2>💀 Kills Leaderboard</h2>
+        <table style="width:100%; border-collapse: collapse; margin-bottom:20px;">
+          <thead>
+            <tr>
+              <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">Player</th>
+              <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">Kills</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for name, kills in kills_board %}
+            <tr>
+              <td style="padding:8px;">{{ name }}</td>
+              <td style="padding:8px;">{{ kills }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- Blades Leaderboard -->
+        <h2>🔪 Blades Leaderboard</h2>
+        <table style="width:100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">Player</th>
+              <th style="padding:8px; text-align:left; border-bottom:1px solid #ddd;">Blades</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for name, blades in blades_board %}
+            <tr>
+              <td style="padding:8px;">{{ name }}</td>
+              <td style="padding:8px;">{{ blades }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="button-container" style="margin-top:30px;">
+            <a href="{{ url_for('dashboard') }}" class="btn">← Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

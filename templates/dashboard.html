@@ -1,7 +1,97 @@
-@echo off
-set /p projectname=Enter project folder name:
-xcopy /E /I /Y "C:\Users\hp\Documents\project-template" "%cd%\%projectname%"
-cd %projectname%
-python -m venv .venv
-call .venv\Scripts\activate
-echo Project '%projectname%' created and virtual environment activated.
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blade Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Leaflet CSS & JS for live map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- auto-refresh every 5 seconds -->
+    <script>
+      setInterval(function(){ window.location.reload(); }, 5000);
+    </script>
+</head>
+<body class="home-background">
+    <div class="container">
+        <h1 class="blade-title">Welcome, {{ name }}!</h1>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flashes">
+            {% for category, message in messages %}
+              <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Blade code & stats -->
+        <p style="font-size:20px; margin-top:10px;">🗡️ Your blade code: <strong>{{ blade_code }}</strong></p>
+        <p style="font-size:18px;">🔪 Blades: <strong>{{ blades }}</strong> &nbsp;|&nbsp; 💀 Kills: <strong>{{ kill_count }}</strong></p>
+
+        {% if game_over %}
+            <p style="font-size:22px; margin-top:20px; color:gold;">The game has ended.</p>
+        {% elif target %}
+            <p style="font-size:24px; margin-top:20px;">🎯 Your current target: <strong>{{ target }}</strong></p>
+
+            <!-- Leaflet map -->
+            <div id="map" style="height:300px; margin-top:10px;"></div>
+            <script>
+              // initialize map at campus coordinates
+              var map = L.map('map').setView([34.0691, 72.6441], 17);
+
+              // Use OSM Standard tiles for more detailed building labels
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap contributors'
+              }).addTo(map);
+
+              // marker & accuracy
+              var marker = L.marker([34.0691, 72.6441]).addTo(map).bindPopup("{{ target }} approx.");
+              var circle = L.circle([34.0691, 72.6441], {radius:50, color:'#3388ff', fillColor:'#3388ff', fillOpacity:0.2}).addTo(map);
+
+              // poll target location every 5s
+              setInterval(function() {
+                fetch('/location/{{ target.lower() }}')
+                  .then(r=>r.json()).then(data=>{
+                    if(data.lat && data.lng) {
+                      var latlng = [data.lat, data.lng];
+                      marker.setLatLng(latlng);
+                      circle.setLatLng(latlng);
+                      // optional: pan map to marker (comment out if not desired)
+                      // map.panTo(latlng);
+                    }
+                  });
+              }, 5000);
+
+              // watch & update own location
+              if(navigator.geolocation) {
+                navigator.geolocation.watchPosition(function(pos){
+                  fetch('/update_location', {
+                    method:'POST', headers:{'Content-Type':'application/json'},
+                    body: JSON.stringify({lat:pos.coords.latitude, lng:pos.coords.longitude})
+                  });
+                },function(err){}, {enableHighAccuracy:true});
+              }
+            </script>
+
+            <!-- kill form -->
+            <form method="post" action="{{ url_for('dashboard') }}" style="margin-top:20px;">
+              <label for="blade_code">Enter {{ target }}'s blade code:</label><br>
+              <input id="blade_code" name="blade_code" type="text" required style="padding:8px; width:200px; margin-top:10px;"><br>
+              <button class="btn" type="submit" style="margin-top:20px;">Confirm Kill</button>
+            </form>
+        {% else %}
+            <p style="font-size:22px; font-style:italic; margin-top:20px;">⌛ Waiting for target assignment...</p>
+        {% endif %}
+
+        <div class="button-container" style="margin-top:30px;">
+            <a href="{{ url_for('leaderboard') }}" class="btn">📊 Leaderboard</a>
+            <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

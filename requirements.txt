@@ -1,2 +1,8 @@
-Flask
-gunicorn
+### `requirements.txt`
+pandas
+matplotlib
+seaborn
+numpy
+streamlit
+plotly
+statsmodels.stats.api

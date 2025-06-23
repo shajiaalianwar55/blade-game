@@ -1,8 +1,2 @@
 ### `requirements.txt`
-pandas
-matplotlib
-seaborn
-numpy
-streamlit
-plotly
-statsmodels.stats.api
+Flask==2.1.1

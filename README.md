@@ -1,5 +1,5 @@
 
-![Blade Banner](assets/poster.jpeg)
+<!---![Blade Banner](assets/poster.jpeg)---!>
 
 ## Blade - Campus Assassination Game
 

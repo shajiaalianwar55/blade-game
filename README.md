@@ -1,7 +1,7 @@
 
 ![Blade Banner](assets/poster.jpeg)
 
-🗡️ Blade - Campus Assassination Game
+## Blade - Campus Assassination Game
 
 Blade is a web-based remake of the classic “Assassins” campus game.
 

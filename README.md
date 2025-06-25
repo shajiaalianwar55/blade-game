@@ -125,7 +125,7 @@ If you'd like to discuss collaboration, learning use, or licensing options, feel
 
 ## Authors
 
-This project came to life through shared effort, logic, and countless late-night sessions by:
+This project was collaboratively built with love, logic, and late-night sessions by:
 
 -  Shajia Ali Anwar: https://github.com/shajiaalianwar55
 -  Aleena Rizwan: https://github.com/AleenaRizwan

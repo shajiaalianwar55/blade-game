@@ -133,3 +133,5 @@ This project came to life through shared effort, logic, and countless late-night
 -  Sara Faysal: https://github.com/sarafaysal
 
 Feel free to explore our GitHub profiles and reach out if you’re curious about our work or want to collaborate!
+
+<!-- Minor update for Github contribution -->
